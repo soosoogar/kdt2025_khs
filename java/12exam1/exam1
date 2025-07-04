@@ -1,0 +1,31 @@
+package ch12;
+
+import java.util.*;
+
+public class exam01 {
+    static Vector<Integer> v = new Vector<>();
+
+    private static void read() {
+        Scanner s = new Scanner(System.in);
+        System.out.println("정수 입력(-1이면 종료)");
+        while (true)
+        {
+            int n = s.nextInt();
+            if(n == -1)
+                break;
+            v.add(n);
+        }
+        s.close();
+
+    }
+
+    private static void finMin(){
+        int min = Collections.min(v);
+        System.out.println(min);
+    }
+
+    public static void main(String[] args) {
+        read();
+        finMin();
+    }
+}
