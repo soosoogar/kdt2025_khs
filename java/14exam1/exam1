@@ -1,0 +1,106 @@
+package ch14;
+
+import java.io.*;
+import java.util.*;
+
+class Student {
+    int id;
+    String name;
+    int kor, math, eng;
+
+    public Student(int id, String name, int kor, int math, int eng) {
+        this.id = id;
+        this.name = name;
+        this.kor = kor;
+        this.math = math;
+        this.eng = eng;
+    }
+    public int getId() {
+        return id;
+    }
+    public void setId(int id) {
+        this.id = id;
+    }
+    public String getName() {
+        return name;
+    }
+    public void setName(String name) {
+        this.name = name;
+    }
+    public int getKor() {
+        return kor;
+    }
+    public void setKor(int kor) {
+        this.kor = kor;
+    }
+    public int getEng() {
+        return eng;
+    }
+    public void setEng(int eng) {
+        this.eng = eng;
+    }
+    public int getMath() {
+        return math;
+    }
+    public void setMath(int math) {
+        this.math = math;
+    }
+
+    double getAverage() {
+        return getTotal() / 3;
+    }
+    int getTotal() {
+        return (kor + eng + math);
+    }
+}
+
+public class StudentProcessor {
+    public static void main(String[] args) {
+        ArrayList<Student> students = new ArrayList<>();
+
+        try {
+            BufferedReader br = new BufferedReader(new FileReader("data.txt"));
+            String line;
+
+            while ((line = br.readLine()) != null) {
+                StringTokenizer st = new StringTokenizer(line, ",");
+                int id = Integer.parseInt(st.nextToken().trim());
+                String name = st.nextToken().trim();
+                int kor = Integer.parseInt(st.nextToken().trim());
+                int math = Integer.parseInt(st.nextToken().trim());
+                int eng = Integer.parseInt(st.nextToken().trim());
+
+                students.add(new Student(id, name, kor, math, eng));
+            }
+
+            br.close();
+        } catch (IOException e) {
+            System.out.println("파일을 읽는 도중 오류 발생: " + e.getMessage());
+        }
+
+        // 최고 평균 학생 찾기
+        Student topStudent = null;
+        double maxAvg = -1;
+
+        // 국어 점수 합산
+        int totalKor = 0;
+
+        for (Student s : students) {
+            double avg = s.getAverage();
+            if (avg > maxAvg) {
+                maxAvg = avg;
+                topStudent = s;
+            }
+
+            totalKor += s.kor;
+        }
+
+        // 출력
+        if (topStudent != null) {
+            System.out.println("최고 평균을 받은 학생: " + topStudent.name + " (" + maxAvg + ")");
+        }
+
+        double korAvg = totalKor / (double) students.size();
+        System.out.println("국어 점수 전체 평균: " + korAvg);
+    }
+}
