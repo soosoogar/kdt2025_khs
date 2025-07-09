@@ -1,0 +1,59 @@
+package ch15;
+
+import java.io.*;
+import java.util.*;
+
+public class Seoul_people {
+    public static void main(String[] args) {
+        ArrayList<RegionPopulation> list = new ArrayList<>();
+
+        try {
+            BufferedReader br = new BufferedReader(new InputStreamReader(
+                    new FileInputStream("C:\\Users\\cyci\\Downloads\\seoul_people.csv"), "MS949"));
+
+            String line = br.readLine(); // 첫 줄 (헤더) 스킵
+
+            while ((line = br.readLine()) != null) {
+                String[] data = line.split(",");
+
+                if (data.length < 8) continue;
+
+                String name = data[0]; // 자치구명
+                int totalPopulation = Integer.parseInt(data[3]);
+                int households = Integer.parseInt(data[4]);
+                double peoplePerHousehold = Double.parseDouble(data[5]);
+                int malePopulation = Integer.parseInt(data[6]);
+                int femalePopulation = Integer.parseInt(data[7]);
+
+                list.add(new RegionPopulation(name, totalPopulation, households, peoplePerHousehold, malePopulation, femalePopulation));
+            }
+
+            br.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        // 분석
+        RegionPopulation maxMale = Collections.max(list, Comparator.comparingInt(RegionPopulation::getMalePopulation));
+        RegionPopulation minMale = Collections.min(list, Comparator.comparingInt(RegionPopulation::getMalePopulation));
+
+        RegionPopulation maxFemale = Collections.max(list, Comparator.comparingInt(RegionPopulation::getFemalePopulation));
+        RegionPopulation minFemale = Collections.min(list, Comparator.comparingInt(RegionPopulation::getFemalePopulation));
+
+        RegionPopulation maxHousehold = Collections.max(list, Comparator.comparingDouble(RegionPopulation::getPeoplePerHousehold));
+        RegionPopulation minHousehold = Collections.min(list, Comparator.comparingDouble(RegionPopulation::getPeoplePerHousehold));
+
+        int total = list.stream().mapToInt(RegionPopulation::getTotalPopulation).sum();
+        double averagePopulation = (double) total / list.size();
+
+        // 출력
+        System.out.println("남자 인구가 가장 많은 구: " + maxMale.getName() + " (" + maxMale.getMalePopulation() + ")");
+        System.out.println("남자 인구가 가장 적은 구: " + minMale.getName() + " (" + minMale.getMalePopulation() + ")");
+        System.out.println("여자 인구가 가장 많은 구: " + maxFemale.getName() + " (" + maxFemale.getFemalePopulation() + ")");
+        System.out.println("여자 인구가 가장 적은 구: " + minFemale.getName() + " (" + minFemale.getFemalePopulation() + ")");
+        System.out.println("세대당 인구가 가장 많은 구: " + maxHousehold.getName() + " (" + maxHousehold.getPeoplePerHousehold() + ")");
+        System.out.println("세대당 인구가 가장 적은 구: " + minHousehold.getName() + " (" + minHousehold.getPeoplePerHousehold() + ")");
+        System.out.printf("평균 구 인구수: %.0f명\n", averagePopulation);
+    }
+}
