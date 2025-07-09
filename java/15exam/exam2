@@ -1,0 +1,44 @@
+package ch15;
+
+public class RegionPopulation {
+    String name;
+    int totalPopulation;
+    int households;
+    double peoplePerHousehold;
+    int malePopulation;
+    int femalePopulation;
+
+    public RegionPopulation(String name, int totalPopulation, int households, double peoplePerHousehold, int malePopulation, int femalePopulation) {
+        this.name = name;
+        this.totalPopulation = totalPopulation;
+        this.households = households;
+        this.peoplePerHousehold = peoplePerHousehold;
+        this.malePopulation = malePopulation;
+        this.femalePopulation = femalePopulation;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getTotalPopulation() {
+        return totalPopulation;
+    }
+
+    public int getHouseholds() {
+        return households;
+    }
+
+    public double getPeoplePerHousehold() {
+        return peoplePerHousehold;
+    }
+
+    public int getMalePopulation() {
+        return malePopulation;
+    }
+
+    public int getFemalePopulation() {
+        return femalePopulation;
+    }
+
+}
