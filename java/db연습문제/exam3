@@ -1,0 +1,41 @@
+1. σ_{A=a2}(R)
+SELECT * FROM R
+WHERE A = 'a2';
+
+2.π_{A,B}(R)
+SELECT A, B FROM R;
+
+3.π_{A,B}(σ_{A=a2}(R)
+SELECT A, B FROM R
+WHERE A = 'a2';
+
+4.RxS
+SELECT * FROM R
+CROSS JOIN S;
+
+5.R⨝_{R.c=S.c}S
+SELECT * FROM R
+JOIN S ON R.c = S.c;
+
+6.R⟕_{R.c=S.c}S
+SELECT * FROM R
+LEFT JOIN S ON R.c = S.c;
+
+7.R⟖_{R.c=S.c}S
+SELECT * FROM R
+RIGHT JOIN S ON R.c = S.c;
+
+8.R⟗_{R.c=S.c}S
+SELECT * FROM R
+FULL OUTER JOIN S ON R.c = S.c;
+
+9.π_c(R) ∪ π_c(S)
+SELECT * FROM R
+LEFT JOIN S ON R.c = S.c
+UNION
+SELECT * FROM R
+RIGHT JOIN S ON R.c = S.c;
+
+SELECT DISTINCT c FROM R
+UNION
+SELECT DISTINCT c FROM S;
