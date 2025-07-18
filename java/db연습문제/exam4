@@ -1,0 +1,8 @@
+1. 과목코드가 1234이고 성적이 A인 모든 학생의 학번을 나타내시오.
+π S_id (σ C_id=1234∧Score= ′A′ (Grade));
+2. 과목코드가 1234인 과목을 등록한 학생의 이름과 전공을 나타내시오.
+π Name, Major (Student⨝ Student.S_id=Enroll.S_id σ C_id=1234 (Enroll));
+3. 과목코드가 1234인 과목에 등록하지 않은 학생의 이름을 나타내시오. 단, 모든 학생이 수강 신청에 참여했다고 가정한다.
+π Name (Student)−π Name (Student⨝ Student.S_id=Enroll.S_id σ C_id=1234​(Enroll));
+4. 모든 과목에 등록한 학생의 이름을 나타내시오.
+π Name (Student⨝ Student.S_id=Enroll.S_id (π S_id (Enroll)÷π C_id (Enroll)));
