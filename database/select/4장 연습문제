@@ -1,0 +1,15 @@
+1. select ename from emp where mgr is null;
+
+2.
+select ename, dname from emp, dept where emp.deptno-dept.deptno;
+select ename, (select dname from dept where deptno=e.deptno) as dname from emp e;
+
+3.
+SELECT	ename FROM	Emp, Dept WHERE Emp.deptno=Dept.deptno AND loc LIKE 'CHICAGO';
+SELECT	ename FROM	Emp, (SELECT deptno FROM Dept WHERE loc LIKE 'CHICAGO') d WHERE	Emp.deptno=d.deptno;
+SELECT	ename FROM	Emp WHERE	deptno IN(SELECT deptno FROM Dept WHERE loc LIKE 'CHICAGO');
+SELECT	ename FROM	Emp e where EXISTS	(SELECT deptno FROM Dept WHERE e.deptno=deptno and loc LIKE 'CHICAGO');
+
+4.select ename from emp where sal>(select avg(sal)from emp);
+
+5.select b.deptno, b.ename from emp b where b.sal>(select avg(sub.sal) from emp sub where sub.deptno = b.deptno);
