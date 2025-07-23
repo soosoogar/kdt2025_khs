@@ -1,0 +1,25 @@
+1.
+a:ABD
+b:A
+c:ABD
+d:후보키없음
+
+2.
+  a.shipname, date
+  b.R1(shipname, shiptype), 
+    R2(shipname, date, voyageID, cargo, port)
+  c.R1(shipname, shiptype), 
+    R2(voyageID, cargo), 
+    R3(shipname, date, voyageID, port)
+  d. R1(shipname, shiptype), R2(voyageID, cargo), R3(voyageID, shipname), R4(voyageID, date, port)
+     R1(shipname, shiptype), R2(voyageID, shipname, cargo), R4(voyageID, date, port)
+3.
+a:(partnumber, supplier) → price
+  supplier → suppaddress
+  partnumber → description
+b.재1정규형
+c:R1(partnumber, description, supplier, price)
+  R2(supplier, suppaddress)
+d:R1(partnumber, supplier, price)
+  R2(supplier, suppaddress)
+  R3(partnumber, description)
